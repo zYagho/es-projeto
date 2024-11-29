@@ -1,4 +1,1 @@
-Projeto de Engenharia de Software
-
-APP:
-  Nosso projeto será um aplicativo de reservas de salas na biblioteca, visto que atualmente essa reserva é feito apenas no papel.
+Projeto para a disciplina de engenharia de software. Sistema de gerenciamento de salas de estudos para bibliotecas.
