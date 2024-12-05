@@ -7,7 +7,7 @@ class CreateUserController{
         const {name, email, password} = req.body;
         
         const createUser = new CreateUserService();
-        const user = await createUser.execute({name, email, password})
+        const user = await createUser.create({name, email, password})
 
         if(!user){
             throw new Error("Usuário já está cadastrado no banco.")

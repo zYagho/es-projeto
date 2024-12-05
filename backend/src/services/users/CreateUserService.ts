@@ -1,5 +1,6 @@
 import prismaCliente from "../../prisma";
 import { ValidadeUserService } from "./ValidadeUserService";
+import { hash } from "bcryptjs";
 
 //Criando o tipo de informações que poderão ser passadas para criar o usuário.
 interface UserRequest{
@@ -9,7 +10,7 @@ interface UserRequest{
 }
 
 class CreateUserService{
-    async execute({name, email, password}: UserRequest){
+    async create({name, email, password}: UserRequest){
 
         //validando se esse usuário já existe no banco.
         const userExist = new ValidadeUserService();
@@ -17,11 +18,20 @@ class CreateUserService{
 
         //Se o usuário não existir, crie ele.
         if(!user){
+
+            //Criptografando a senha.
+            const passHash = await hash(password, 8);
+
             const newUser = await prismaCliente.user.create({
                 data:{
                     name:name,
                     email:email,
-                    password:password
+                    password:passHash
+                },
+                select:{
+                    id:true,
+                    name:true,
+                    email:true
                 }
             })
 
@@ -30,6 +40,7 @@ class CreateUserService{
         //"Usuário já existe"
         return;
     }
+
 }
 
-export {CreateUserService}
+export { CreateUserService }
