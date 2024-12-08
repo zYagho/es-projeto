@@ -1,16 +1,16 @@
-import prismaCliente from "../../prisma";
+import prismaCliente from "../prisma";
 
 //Serviço criado para validar todas as informações necessárias de um usuário.
 
-class ValidadeUserService{
+class ValidateUser{
     async userExists(email:string){
         const userExist = await prismaCliente.user.findFirst({
             where:{
                 email:email
             }
         })
-        return userExist ? true : false;
+        return userExist;
     }
 }
 
-export { ValidadeUserService };
+export { ValidateUser };
